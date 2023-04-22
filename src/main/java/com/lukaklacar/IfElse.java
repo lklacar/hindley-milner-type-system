@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @RequiredArgsConstructor
-public class FunctionType extends Type {
-    private final Type input;
-    private final Type output;
+public class IfElse extends Expression {
+    private final Expression condition;
+    private final Expression thenBranch;
+    private final Expression elseBranch;
+
 }

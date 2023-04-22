@@ -1,14 +1,13 @@
 package com.lukaklacar;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public class Application extends Expression {
-    private Expression func;
-    private Expression arg;
-
-    public Application(Expression func, Expression arg) {
-        this.func = func;
-        this.arg = arg;
-    }
+    private final Expression func;
+    private final Expression arg;
 }

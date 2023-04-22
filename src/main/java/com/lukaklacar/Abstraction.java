@@ -1,14 +1,14 @@
 package com.lukaklacar;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public class Abstraction extends Expression {
-    private String paramName;
-    private Expression body;
+    private final String paramName;
+    private final Expression body;
 
-    public Abstraction(String paramName, Expression body) {
-        this.paramName = paramName;
-        this.body = body;
-    }
 }

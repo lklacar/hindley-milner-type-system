@@ -1,12 +1,12 @@
 package com.lukaklacar;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public class TypeConstructor extends Type {
-    private String name;
-
-    public TypeConstructor(String name) {
-        this.name = name;
-    }
+    private final String name;
 }

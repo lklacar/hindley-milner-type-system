@@ -2,17 +2,14 @@ package com.lukaklacar;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public class LetBindingExpression extends Expression {
-    private String varName;
-    private Expression bindingExpression;
-    private Expression body;
+    private final String varName;
+    private final Expression bindingExpression;
+    private final Expression body;
 
-    public LetBindingExpression(String varName, Expression bindingExpression, Expression body) {
-        this.varName = varName;
-        this.bindingExpression = bindingExpression;
-        this.body = body;
-    }
 }

@@ -48,35 +48,35 @@ Here's an example that demonstrates how to create expressions and infer their ty
 ```java
 public class Main {
     public static void main(String[] args) {
-        // Create some types for our literals
-        Type intType = new TypeConstructor("Int");
-        Type boolType = new TypeConstructor("Bool");
+        var intType = new TypeConstructor("Int");
+        var boolType = new TypeConstructor("Bool");
+        var inference = new TypeInference();
 
-        // Create some expressions to infer types for
-        Expression identity = new Abstraction("x", new Variable("x"));
-        Expression constFunction = new Abstraction("x", new Abstraction("y", new Variable("x")));
-        Expression application = new Application(identity, new LiteralExpression(intType));
+        var identity = new Abstraction("x", new Variable("x"));
+        var identityType = inference.infer(identity);
+        System.out.println("Identity function type: " + identityType);
 
-        TypeInferer inferer = new TypeInferer();
+        var constFunction = new Abstraction("x", new Abstraction("y", new Variable("x")));
+        var constFunctionType = inference.infer(constFunction);
+        System.out.println("Const function type: " + constFunctionType);
 
-        try {
-            Type identityType = inferer.infer(identity);
-            System.out.println("Identity function type: " + identityType);
+        var application = new Application(identity, new LiteralExpression(intType));
+        var applicationType = inference.infer(application);
+        System.out.println("Application type: " + applicationType);
 
-            Type constFunctionType = inferer.infer(constFunction);
-            System.out.println("Const function type: " + constFunctionType);
+        var letExpression = new LetBindingExpression("id", identity, new Application(new Variable("id"), new LiteralExpression(applicationType)));
+        var letExpressionType = inference.infer(letExpression);
+        System.out.println("Let expression type: " + letExpressionType);
 
-            Type applicationType = inferer.infer(application);
-            System.out.println("Application type: " + applicationType);
+        var ifElseExpression = new IfElse(
+                new Variable("x"),
+                new LiteralExpression(intType),
+                new LiteralExpression(intType)
+        );
+        var ifElseAbstraction = new Abstraction("x", ifElseExpression);
+        var ifElseType = inference.infer(ifElseAbstraction);
+        System.out.println("IfElse type: " + ifElseType);
 
-
-            Expression letExpression = new LetBindingExpression("id", identity, new Application(new Variable("id"), new LiteralExpression(applicationType)));
-
-            Type letExpressionType = inferer.infer(letExpression);
-            System.out.println("Let expression type: " + letExpressionType);
-        } catch (UnificationException e) {
-            e.printStackTrace();
-        }
     }
 }
 ```
